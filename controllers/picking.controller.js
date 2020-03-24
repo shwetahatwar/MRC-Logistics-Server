@@ -53,7 +53,7 @@ exports.update = (req, res) => {
   var dt = new Date(dateToday);
   var timeStamp = dt.setSeconds( dt.getSeconds());
   let pickingMaterial = {
-    "status":req.body.status,
+    "status":1,
     "briotDateTime":timeStamp
   }
   PickingList.update(pickingMaterial, {
