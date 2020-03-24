@@ -22,5 +22,8 @@ db.sequelize = sequelize;
 db.users = require("./user.model.js")(sequelize, Sequelize);
 db.putaways = require("./putaway.model.js")(sequelize, Sequelize);
 db.pickings = require("./picking.model.js")(sequelize, Sequelize);
+db.materialinwards = require("./materialinward.model.js")(sequelize, Sequelize);
+db.audits = require("./audit.model.js")(sequelize, Sequelize);
+db.transactions = require("./transaction.model.js")(sequelize, Sequelize);
 
 module.exports = db;

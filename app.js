@@ -7,6 +7,8 @@ const app = express();
 var usersRouter = require('./routes/user.routes');
 var pickingsRouter = require('./routes/picking.routes');
 var putawaysRouter = require('./routes/putaway.routes');
+var materialInwardsRouter = require('./routes/materialinward.routes');
+var auditsRouter = require('./routes/audit.routes');
 
 app.use(function (req, res, next) {
   //Enabling CORS
@@ -24,6 +26,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/users', usersRouter);
 app.use('/pickings', pickingsRouter);
 app.use('/putaways', putawaysRouter);
+app.use('/materialinwards', materialInwardsRouter);
+app.use('/audits', auditsRouter);
 
 const db = require("./models");
 db.sequelize.sync();

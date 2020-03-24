@@ -1,6 +1,6 @@
 module.exports = {
-  HOST: "DESKTOP-1P758TJ",
-  USER: "sagar",
+  HOST: "DESKTOP-3E06H9P",
+  USER: "nik",
   PASSWORD: "briot123",
   DB: "mrcLogistics",
   dialect: "mssql",

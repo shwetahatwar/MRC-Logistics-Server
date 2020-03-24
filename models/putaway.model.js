@@ -14,19 +14,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
      mrcDateTime: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.STRING,
       allowNull: true
     },
     briotDateTime: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.STRING,
       allowNull: true
     },
     userId:{
       type: DataTypes.STRING,
       allowNull: false
     },
-     status:{
-      type:DataTypes.INTEGER,
+    scanStatus:{
+      type:DataTypes.STRING,
       allowNull:true
     },
 });

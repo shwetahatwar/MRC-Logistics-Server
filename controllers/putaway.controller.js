@@ -56,26 +56,54 @@ exports.update = (req, res) => {
     "status":req.body.status,
     "briotDateTime":timeStamp
   }
-  Putaway.update(putawayMaterial, {
-    where: {
-      rackBarcodeSerial:req.body.rackBarcodeSerial,
-      binBarcodeSerial:req.body.binBarcodeSerial
-    }
-  })
-  .then(num => {
-    if (num == 1) {
-      res.send({
-        message: "Data was updated successfully."
+  if(req.body.materialBarcodeSerial == null || req.body.materialBarcodeSerial == undefined || req.body.materialBarcodeSerial == ""){
+    Putaway.update(putawayMaterial, {
+      where: {
+        rackBarcodeSerial:req.body.rackBarcodeSerial,
+        binBarcodeSerial:req.body.binBarcodeSerial
+      }
+    })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Data was updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update data with id=${id}. Maybe data was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating data with id=" + id
       });
-    } else {
-      res.send({
-        message: `Cannot update data with id=${id}. Maybe data was not found or req.body is empty!`
-      });
-    }
-  })
-  .catch(err => {
-    res.status(500).send({
-      message: "Error updating data with id=" + id
     });
-  });
+  }
+  else{
+    Putaway.update(putawayMaterial, {
+      where: {
+        rackBarcodeSerial:req.body.rackBarcodeSerial,
+        binBarcodeSerial:req.body.binBarcodeSerial,
+        materialBarcodeSerial:req.body.materialBarcodeSerial
+      }
+    })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Data was updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update data with id=${id}. Maybe data was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating data with id=" + id
+      });
+    });
+  }
+    
 };
