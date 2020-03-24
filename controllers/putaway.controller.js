@@ -53,7 +53,7 @@ exports.update = (req, res) => {
   var dt = new Date(dateToday);
   var timeStamp = dt.setSeconds( dt.getSeconds());
   let putawayMaterial = {
-    "status":req.body.status,
+    "status":1,
     "briotDateTime":timeStamp
   }
   if(req.body.materialBarcodeSerial == null || req.body.materialBarcodeSerial == undefined || req.body.materialBarcodeSerial == ""){
