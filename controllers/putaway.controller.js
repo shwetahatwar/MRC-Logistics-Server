@@ -4,7 +4,7 @@ const Op = db.Sequelize.Op;
 
 exports.create = async (req, res) => {
   // console.log(req.body);
-
+  
   // // Create a putawayMaterial
   const putawayMaterial = {
     rackBarcodeSerial: req.body.rackBarcodeSerial,
@@ -13,9 +13,9 @@ exports.create = async (req, res) => {
     mrcDateTime: req.body.mrcDateTime,
     briotDateTime:req.body.briotDateTime,
     userId:req.body.userId,
-    status: 0
+    scanStatus: 0
   };
-
+  
   // Save putawayMaterial in the database
   await Putaway.create(putawayMaterial)
   .then(data => {
@@ -34,7 +34,7 @@ exports.create = async (req, res) => {
 exports.findAll = (req, res) => {
   console.log("query",req.query );
   Putaway.findAll({ 
-  	where: req.query 
+    where: req.query 
   })
   .then(data => {
     res.send(data);
@@ -53,9 +53,10 @@ exports.update = (req, res) => {
   var dt = new Date(dateToday);
   var timeStamp = dt.setSeconds( dt.getSeconds());
   let putawayMaterial = {
-    "status":1,
+    "scanStatus":1,
     "briotDateTime":timeStamp
   }
+  console.log("Req body",req.body);
   if(req.body.materialBarcodeSerial == null || req.body.materialBarcodeSerial == undefined || req.body.materialBarcodeSerial == ""){
     Putaway.update(putawayMaterial, {
       where: {
@@ -89,6 +90,7 @@ exports.update = (req, res) => {
       }
     })
     .then(num => {
+      console.log("Num",num);
       if (num == 1) {
         res.send({
           message: "Data was updated successfully."
@@ -105,5 +107,77 @@ exports.update = (req, res) => {
       });
     });
   }
+  
+};
+
+exports.getPutawayCountDashboard = async (req, res) => {
+  // var countTable=[];
+  // var totalCount=0;
+  // var putawayCount=0;
+  // await Putaway.count({
     
+  // }).then(data => {
+  //   totalCount=data;
+  //   let totalData = {
+  //     'totalCount':data
+  //   };
+  //   countTable.push(totalData);
+  // }).catch(err => {
+  //   res.status(500).send({
+  //     message:
+  //     err.message || "Some error occurred while retrieving count."
+  //   });
+  // });
+  // await Putaway.count({
+  //   where:{
+  //     scanStatus:1
+  //   }
+  // }).then(data => {
+  //   putawayCount = data;
+  //   let putawayCounts = {
+  //     'putawayCount':data
+  //   };
+  //   countTable.push(putawayCounts);
+  // }).catch(err => {
+  //   res.status(500).send({
+  //     message:
+  //     err.message || "Some error occurred while retrieving count."
+  //   });
+  // });
+  
+  // let pendingCount =  totalCount - putawayCount;
+  // let pendingCountArray = {
+  //   'pendingCount':pendingCount
+  // };
+  // countTable.push(pendingCountArray);
+  // res.status(200).send({
+  //   countTable
+  // });  
+
+  var totalCount = 0;
+  var pendingCount = 0;
+  var putawayCount = 0;
+  
+  await Putaway.count({
+    where:{
+      scanStatus:1
+    }
+  }).then(data=>{
+    putawayCount = data;
+  })
+  
+  await Putaway.count({
+  
+  }).then(data=>{
+    totalCount = data;
+  })
+  
+  pendingCount = totalCount - putawayCount;
+  var response = {
+    totalCount:totalCount,
+    pendingCount:pendingCount,
+    putawayCount:putawayCount
+  }
+  res.status(200).send(response);
+
 };

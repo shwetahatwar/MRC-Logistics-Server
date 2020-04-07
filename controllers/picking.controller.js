@@ -13,7 +13,7 @@ exports.create = async (req, res) => {
     mrcDateTime: req.body.mrcDateTime,
     briotDateTime:req.body.briotDateTime,
     userId:req.body.userId,
-    status: 0
+    scanStatus: 0
   };
 
   // Save pickingMaterial in the database
@@ -53,7 +53,7 @@ exports.update = (req, res) => {
   var dt = new Date(dateToday);
   var timeStamp = dt.setSeconds( dt.getSeconds());
   let pickingMaterial = {
-    "status":1,
+    "scanStatus":1,
     "briotDateTime":timeStamp
   }
   PickingList.update(pickingMaterial, {
@@ -78,4 +78,76 @@ exports.update = (req, res) => {
       message: "Error updating data with id=" + id
     });
   });
+};
+
+exports.getPicklistCountDashboard = async (req, res) => {
+  // var countTable=[];
+  // var totalCount=0;
+  // var pickingCount = 0;
+  // await PickingList.count({
+    
+  // }).then(data => {
+  //   totalCount=data;
+  //   let totalData = {
+  //     'totalCount':data
+  //   };
+  //   countTable.push(totalData);
+  // }).catch(err => {
+  //   res.status(500).send({
+  //     message:
+  //     err.message || "Some error occurred while retrieving count."
+  //   });
+  // });
+  // await PickingList.count({
+  //   where:{
+  //     scanStatus:1
+  //   }
+  // }).then(data => {
+  //   pickingCount = data;
+  //   let pickingCounts = {
+  //     'pickingCount':data
+  //   };
+  //   countTable.push(pickingCounts);
+  // }).catch(err => {
+  //   res.status(500).send({
+  //     message:
+  //     err.message || "Some error occurred while retrieving count."
+  //   });
+  // });
+  
+  // let pendingCount =  totalCount - pickingCount;
+  // let pendingCountArray = {
+  //   'pendingCount':pendingCount
+  // };
+  // countTable.push(pendingCountArray);
+  // res.status(200).send({
+  //   countTable
+  // });  
+
+  var totalCount = 0;
+  var pendingCount = 0;
+  var pickedCount = 0;
+  
+  await PickingList.count({
+    where:{
+      scanStatus:1
+    }
+  }).then(data=>{
+    pickedCount = data;
+  })
+  
+  await PickingList.count({
+  
+  }).then(data=>{
+    totalCount = data;
+  })
+  
+  pendingCount = totalCount - pickedCount;
+  var response = {
+    totalCount:totalCount,
+    pendingCount:pendingCount,
+    pickedCount:pickedCount
+  }
+  res.status(200).send(response);
+  
 };
