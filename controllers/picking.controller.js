@@ -44,7 +44,7 @@ exports.findAll = (req, res) => {
   .catch(err => {
     res.status(500).send({
       message:
-      err.message || "Some error occurred while retrieving users."
+      err.message || "Some error occurred while retrieving picking Items."
     });
   });
 };
@@ -70,14 +70,14 @@ exports.update = (req, res) => {
         message: "Data was updated successfully."
       });
     } else {
-      res.send({
-        message: `Cannot update data with id=${id}. Maybe data was not found or req.body is empty!`
+      res.status(500).send({
+        message: "Error updating data"
       });
     }
   })
   .catch(err => {
     res.status(500).send({
-      message: "Error updating data with id=" + id
+      message: "Error updating data"
     });
   });
 };

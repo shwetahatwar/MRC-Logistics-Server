@@ -72,14 +72,14 @@ exports.update = (req, res) => {
           message: "Data was updated successfully."
         });
       } else {
-        res.send({
-          message: `Cannot update data with id=${id}. Maybe data was not found or req.body is empty!`
+        res.status(500).send({
+          message: "Error updating data"
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating data with id=" + id
+        message: "Error updating data"
       });
     });
   }
@@ -97,15 +97,15 @@ exports.update = (req, res) => {
         res.send({
           message: "Data was updated successfully."
         });
-      } else {
-        res.send({
-          message: `Cannot update data with id=${id}. Maybe data was not found or req.body is empty!`
-        });
+      } else{
+          res.status(500).send({
+            message: "Error updating data"
+          });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating data with id=" + id
+        message: "Error updating data"
       });
     });
   }
