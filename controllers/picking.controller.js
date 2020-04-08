@@ -34,7 +34,9 @@ exports.create = async (req, res) => {
 exports.findAll = (req, res) => {
   console.log("query",req.query );
   PickingList.findAll({ 
-  	where: req.query 
+  	where: {
+      scanStatus:0
+    }
   })
   .then(data => {
     res.send(data);
