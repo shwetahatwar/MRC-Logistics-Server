@@ -5,5 +5,6 @@ var pickings = require('../controllers/picking.controller');
 router.post("/",pickings.create);
 router.get("/",pickings.findAll);
 router.put('/:id',pickings.update);
+router.get("/get/dashboardCount",pickings.getPicklistCountDashboard);
 
 module.exports = router;

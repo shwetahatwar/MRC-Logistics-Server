@@ -75,7 +75,7 @@ exports.sign_in = (req, res) => {
       deviceId:req.body.deviceId
     },
   }).then((user) => {
-    console.log("Line 48", user[0]["dataValues"]["status"]);
+   // console.log("Line 48", user[0]["dataValues"]["status"]);
     if(user[0]["dataValues"]["status"] == 0){
       console.log("Line 50", user.status);
       return res.status(401).json({ message: 'Authentication failed. Invalid user or password.' });
