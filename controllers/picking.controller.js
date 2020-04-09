@@ -44,19 +44,29 @@ exports.findAll = (req, res) => {
   .catch(err => {
     res.status(500).send({
       message:
-      err.message || "Some error occurred while retrieving users."
+      err.message || "Some error occurred while retrieving picking Items."
     });
   });
 };
 
 exports.update = (req, res) => {
   const id = req.params.id;
-  var dateToday = new Date();
-  var dt = new Date(dateToday);
-  var timeStamp = dt.setSeconds( dt.getSeconds());
+  var d = new Date();
+  var newDay = d.getDate();
+  if(newDay.toString().length == 1)
+    newDay = "0" + newDay;
+  var newMonth = d.getMonth();
+  newMonth = newMonth +1;
+  if(newMonth.toString().length == 1)
+    newMonth = "0" + newMonth;
+  var newYear = d.getFullYear();
+  var newTimeHrs = d.getHours();
+  var newTimeMinutes = d.getMinutes();
+  var newTimeSeconds = d.getSeconds();
+  var newDateTimeNow = newYear + "." + newMonth + "." + newDay + " " + newTimeHrs + ":" + newTimeMinutes + ":" + newTimeSeconds;
   let pickingMaterial = {
     "scanStatus":1,
-    "briotDateTime":timeStamp
+    "briotDateTime":newDateTimeNow
   }
   PickingList.update(pickingMaterial, {
     where: {
@@ -70,14 +80,14 @@ exports.update = (req, res) => {
         message: "Data was updated successfully."
       });
     } else {
-      res.send({
-        message: `Cannot update data with id=${id}. Maybe data was not found or req.body is empty!`
+      res.status(500).send({
+        message: "Error updating data"
       });
     }
   })
   .catch(err => {
     res.status(500).send({
-      message: "Error updating data with id=" + id
+      message: "Error updating data"
     });
   });
 };
