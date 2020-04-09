@@ -51,12 +51,22 @@ exports.findAll = (req, res) => {
 
 exports.update = (req, res) => {
   const id = req.params.id;
-  var dateToday = new Date();
-  var dt = new Date(dateToday);
-  var timeStamp = dt.setSeconds( dt.getSeconds());
+  var d = new Date();
+  var newDay = d.getDate();
+  if(newDay.toString().length == 1)
+    newDay = "0" + newDay;
+  var newMonth = d.getMonth();
+  newMonth = newMonth +1;
+  if(newMonth.toString().length == 1)
+    newMonth = "0" + newMonth;
+  var newYear = d.getFullYear();
+  var newTimeHrs = d.getHours();
+  var newTimeMinutes = d.getMinutes();
+  var newTimeSeconds = d.getSeconds();
+  var newDateTimeNow = newYear + "." + newMonth + "." + newDay + " " + newTimeHrs + ":" + newTimeMinutes + ":" + newTimeSeconds;
   let pickingMaterial = {
     "scanStatus":1,
-    "briotDateTime":timeStamp
+    "briotDateTime":newDateTimeNow
   }
   PickingList.update(pickingMaterial, {
     where: {

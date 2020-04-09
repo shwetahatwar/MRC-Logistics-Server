@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const Audit = sequelize.define("audit", {
     sapCode: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
+      unique:true
     },
     oldCode: {
       type: DataTypes.STRING,
