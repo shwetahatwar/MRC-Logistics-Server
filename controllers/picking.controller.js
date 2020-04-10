@@ -70,8 +70,9 @@ exports.update = (req, res) => {
   }
   PickingList.update(pickingMaterial, {
     where: {
-      rackBarcodeSerial:req.body.rackBarcodeSerial,
-      binBarcodeSerial:req.body.binBarcodeSerial
+      materialBarcodeSerial:req.body.materialBarcodeSerial
+      // rackBarcodeSerial:req.body.rackBarcodeSerial,
+      // binBarcodeSerial:req.body.binBarcodeSerial
     }
   })
   .then(num => {

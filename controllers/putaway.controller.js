@@ -77,7 +77,7 @@ exports.update = (req, res) => {
       }
     })
     .then(num => {
-      if (num == 1) {
+      if (num >= 1) {
         res.send({
           message: "Data was updated successfully."
         });
