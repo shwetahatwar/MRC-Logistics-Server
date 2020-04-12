@@ -49,6 +49,24 @@ exports.findAll = (req, res) => {
   });
 };
 
+exports.pickedAll = (req, res) => {
+  console.log("query",req.query );
+  PickingList.findAll({ 
+  	where: {
+      scanStatus:1
+    }
+  })
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+      err.message || "Some error occurred while retrieving picked Items."
+    });
+  });
+};
+
 exports.update = (req, res) => {
   const id = req.params.id;
   var d = new Date();
