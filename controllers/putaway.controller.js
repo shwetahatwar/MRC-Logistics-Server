@@ -49,6 +49,24 @@ exports.findAll = (req, res) => {
   });
 };
 
+exports.findScannedAll = (req, res) => {
+  console.log("query ",req.query );
+  Putaway.findAll({ 
+    where: {
+      scanStatus:1
+    } 
+  })
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+      err.message || "Some error occurred while retrieving scanned items."
+    });
+  });
+};
+
 exports.update = (req, res) => {
   const id = req.params.id;
   var d = new Date();
@@ -77,7 +95,7 @@ exports.update = (req, res) => {
       }
     })
     .then(num => {
-      if (num == 1) {
+      if (num >= 1) {
         res.send({
           message: "Data was updated successfully."
         });

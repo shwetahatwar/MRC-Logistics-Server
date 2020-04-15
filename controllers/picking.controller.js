@@ -49,6 +49,24 @@ exports.findAll = (req, res) => {
   });
 };
 
+exports.pickedAll = (req, res) => {
+  console.log("query",req.query );
+  PickingList.findAll({ 
+  	where: {
+      scanStatus:1
+    }
+  })
+  .then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+      err.message || "Some error occurred while retrieving picked Items."
+    });
+  });
+};
+
 exports.update = (req, res) => {
   const id = req.params.id;
   var d = new Date();
@@ -70,8 +88,9 @@ exports.update = (req, res) => {
   }
   PickingList.update(pickingMaterial, {
     where: {
-      rackBarcodeSerial:req.body.rackBarcodeSerial,
-      binBarcodeSerial:req.body.binBarcodeSerial
+      materialBarcodeSerial:req.body.materialBarcodeSerial
+      // rackBarcodeSerial:req.body.rackBarcodeSerial,
+      // binBarcodeSerial:req.body.binBarcodeSerial
     }
   })
   .then(num => {
