@@ -79,12 +79,18 @@ exports.sign_in = (req, res) => {
       deviceId:req.body.deviceId
     },
   }).then((user) => {
-   // console.log("Line 48", user[0]["dataValues"]["status"]);
-    if(user[0]["dataValues"]["status"] == 0){
+   console.log("Line 82", user[0]);
+   if(user[0] != undefined){
+     if(user[0]["dataValues"]["status"] == 0){
       console.log("Line 50", user.status);
       return res.status(401).json({ message: 'Authentication failed. Invalid user or password.' });
     }
     res.send(user[0]);
+   }
+   else{
+     return res.status(401).json({ message: 'Authentication failed. Invalid user or password or Device Id' });
+   }
+    
   })
   .catch((err) => {
     console.log('err', err);
