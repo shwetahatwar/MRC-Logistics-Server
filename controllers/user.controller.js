@@ -1,6 +1,7 @@
 const db = require("../models");
 const User = db.users;
 const Op = db.Sequelize.Op;
+var winston = require('winston');
 
 exports.create = async (req, res) => {
   console.log(req.body);
@@ -23,6 +24,9 @@ exports.create = async (req, res) => {
   // Save User in the database
   await User.create(user)
     .then(data => {
+      console.log(data);
+      winston.log('info', "127.0.0.1 - there's no place like home");
+      // logger.log('success',data,{message:'success'})
       res.send(data);
     })
     .catch(err => {

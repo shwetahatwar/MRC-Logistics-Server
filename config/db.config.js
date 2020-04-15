@@ -1,10 +1,10 @@
 
 module.exports = {
   HOST: "localhost",
-  USER: "root",
-  PASSWORD: "manager",
+  USER: "nik",
+  PASSWORD: "briot123",
   DB: "mrcLogistics",
-  dialect: "mysql",
+  dialect: "mssql",
   pool: {
     max: 5,
     min: 0,

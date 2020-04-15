@@ -2,6 +2,9 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 const cors = require("cors");
+var morgan = require('morgan');
+var winston = require('./config/winston');  
+
 
 const app = express();
 var usersRouter = require('./routes/user.routes');
@@ -20,6 +23,8 @@ app.use(function (req, res, next) {
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
+
+app.use(morgan('combined', { stream: winston.stream }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -42,6 +47,8 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  winston.error(`${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
 
   // render the error page
   res.status(err.status || 500);
