@@ -1,9 +1,9 @@
 
 module.exports = {
   HOST: "localhost",
-  USER: "nik",
-  PASSWORD: "briot123",
-  DB: "mrcLogistics",
+  USER: "mrcwms",
+  PASSWORD: "Mrcwms%",
+  DB: "MRCWMSAutomation",
   dialect: "mssql",
   pool: {
     max: 5,

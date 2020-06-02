@@ -49,7 +49,9 @@ exports.create = async (req, res) => {
   await Audit.create(auditData)
   .then(async data => {
     var transactionData = {
-      materialBarcodeSerial : req.body.materialBarcodeSerial,
+      rackBarcodeSerial:"NA",
+      binBarcodeSerial:"NA",
+      materialBarcodeSerial : materialBarcode,
       transactionType : "Physical Stock Verification",
       userId : req.body.userId,
       scanStatus: "Success",

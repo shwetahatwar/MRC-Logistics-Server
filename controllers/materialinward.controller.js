@@ -49,7 +49,9 @@ exports.create = async (req, res) => {
   await MaterialInward.create(materialInward)
   .then(async data => {
     var transactionData = {
-      materialBarcodeSerial : req.body.materialBarcodeSerial,
+      rackBarcodeSerial:"NA",
+      binBarcodeSerial:"NA",
+      materialBarcodeSerial : materialBarcode,
       transactionType : "MaterialInward",
       userId : req.body.userId,
       scanStatus: "Success",
@@ -66,7 +68,7 @@ exports.create = async (req, res) => {
   })
   .catch(async err => {
     var transactionData = {
-      materialBarcodeSerial : req.body.materialBarcodeSerial,
+      materialBarcodeSerial : materialBarcode,
       transactionType : "MaterialInward",
       userId : req.body.userId,
       scanStatus: "Failed",
