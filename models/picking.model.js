@@ -9,9 +9,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    
     materialBarcodeSerial: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
      mrcDateTime: {
       type: DataTypes.STRING,
