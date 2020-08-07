@@ -1,0 +1,4 @@
+(node:2836) [SEQUELIZE0004] DeprecationWarning: A boolean value was passed to options.operatorsAliases. This is a no-op with v5 and should be removed.
+(node:2836) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+[winston] Attempt to write logs with no transports {"level":"info","message":"127.0.0.1 - there's no place like home"}
+[winston] Attempt to write logs with no transports {"level":"info","message":"127.0.0.1 - there's no place like home"}

@@ -1,6 +1,6 @@
 
 module.exports = {
-  HOST: "192.168.0.207",
+  HOST: "localhost",
   USER: "mrcwms",
   PASSWORD: "Mrcwms%1",
   DB: "MRCWMSAutomation",

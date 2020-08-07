@@ -1,34 +1,34 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Picking = sequelize.define("picking", {
+  const Transaction = sequelize.define("transaction", {
     rackBarcodeSerial: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    binBarcodeSerial: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    materialBarcodeSerial: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-     mrcDateTime: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    briotDateTime: {
+    binBarcodeSerial: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    materialBarcodeSerial: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    transactionType: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    DateTimeBriot: {
       type: DataTypes.STRING,
       allowNull: true
     },
     userId:{
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     scanStatus:{
       type:DataTypes.STRING,
       allowNull:true
     },
-  });
-  return Picking;
+});
+  return Transaction;
 };

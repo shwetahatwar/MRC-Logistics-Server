@@ -27,7 +27,6 @@ exports.create = async (req, res) => {
   var newDateTimeNow = newYear + "." + newMonth + "." + newDay + " " + newTimeHrs + ":" + newTimeMinutes + ":" + newTimeSeconds;
   
   const auditData = {
-    barcodeSerial:materialBarcode,
     sapCode: arr[0],
     oldCode: arr[1],
     finish:arr[2],

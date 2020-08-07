@@ -27,6 +27,7 @@ exports.create = async (req, res) => {
   var newDateTimeNow = newYear + "." + newMonth + "." + newDay + " " + newTimeHrs + ":" + newTimeMinutes + ":" + newTimeSeconds;
   
   const materialInward = {
+    barcodeSerial:materialBarcode,
     sapCode: arr[0],
     oldCode: arr[1],
     finish:arr[2],
@@ -50,7 +51,7 @@ exports.create = async (req, res) => {
   .then(async data => {
     var transactionData = {
       rackBarcodeSerial:"NA",
-      binBarcodeSerial:"NA",
+      binBarcodeSerial:"NA",	
       materialBarcodeSerial : materialBarcode,
       transactionType : "MaterialInward",
       userId : req.body.userId,
@@ -68,7 +69,7 @@ exports.create = async (req, res) => {
   })
   .catch(async err => {
     var transactionData = {
-      materialBarcodeSerial : materialBarcode,
+      materialBarcodeSerial : req.body.materialBarcodeSerial,
       transactionType : "MaterialInward",
       userId : req.body.userId,
       scanStatus: "Failed",

@@ -183,7 +183,7 @@ exports.getPutawayCountDashboard = async (req, res) => {
   // res.status(200).send({
   //   countTable
   // });  
-	console.log("In");
+
   var totalCount = 0;
   var pendingCount = 0;
   var putawayCount = 0;

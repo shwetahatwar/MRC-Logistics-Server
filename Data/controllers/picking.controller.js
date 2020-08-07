@@ -1,12 +1,12 @@
 const db = require("../models");
-const Putaway = db.putaways;
+const PickingList = db.pickings;
 const Op = db.Sequelize.Op;
 
 exports.create = async (req, res) => {
   // console.log(req.body);
-  
-  // // Create a putawayMaterial
-  const putawayMaterial = {
+
+  // // Create a pickingMaterial
+  const pickingMaterial = {
     rackBarcodeSerial: req.body.rackBarcodeSerial,
     binBarcodeSerial: req.body.binBarcodeSerial,
     materialBarcodeSerial: req.body.materialBarcodeSerial,
@@ -15,9 +15,9 @@ exports.create = async (req, res) => {
     userId:req.body.userId,
     scanStatus: 0
   };
-  
-  // Save putawayMaterial in the database
-  await Putaway.create(putawayMaterial)
+
+  // Save pickingMaterial in the database
+  await PickingList.create(pickingMaterial)
   .then(data => {
     res.send(data);
   })
@@ -25,7 +25,7 @@ exports.create = async (req, res) => {
     console.log("Error",err["errors"][0]["message"]);
     res.status(500).send({
       message:
-      err["errors"][0]["message"] || "Some error occurred while creating the putawayMaterial."
+      err["errors"][0]["message"] || "Some error occurred while creating the pickingMaterial."
     });
   });
   
@@ -33,10 +33,10 @@ exports.create = async (req, res) => {
 
 exports.findAll = (req, res) => {
   console.log("query",req.query );
-  Putaway.findAll({ 
-    where: {
+  PickingList.findAll({ 
+  	where: {
       scanStatus:0
-    } 
+    }
   })
   .then(data => {
     res.send(data);
@@ -44,17 +44,17 @@ exports.findAll = (req, res) => {
   .catch(err => {
     res.status(500).send({
       message:
-      err.message || "Some error occurred while retrieving users."
+      err.message || "Some error occurred while retrieving picking Items."
     });
   });
 };
 
-exports.findScannedAll = (req, res) => {
-  console.log("query ",req.query );
-  Putaway.findAll({ 
-    where: {
+exports.pickedAll = (req, res) => {
+  console.log("query",req.query );
+  PickingList.findAll({ 
+  	where: {
       scanStatus:1
-    } 
+    }
   })
   .then(data => {
     res.send(data);
@@ -62,7 +62,7 @@ exports.findScannedAll = (req, res) => {
   .catch(err => {
     res.status(500).send({
       message:
-      err.message || "Some error occurred while retrieving scanned items."
+      err.message || "Some error occurred while retrieving picked Items."
     });
   });
 };
@@ -82,69 +82,40 @@ exports.update = (req, res) => {
   var newTimeMinutes = d.getMinutes();
   var newTimeSeconds = d.getSeconds();
   var newDateTimeNow = newYear + "." + newMonth + "." + newDay + " " + newTimeHrs + ":" + newTimeMinutes + ":" + newTimeSeconds;
-  let putawayMaterial = {
+  let pickingMaterial = {
     "scanStatus":1,
     "briotDateTime":newDateTimeNow
   }
-  console.log("Req body",req.body);
-  if(req.body.materialBarcodeSerial == null || req.body.materialBarcodeSerial == undefined || req.body.materialBarcodeSerial == ""){
-    Putaway.update(putawayMaterial, {
-      where: {
-        rackBarcodeSerial:req.body.rackBarcodeSerial,
-        binBarcodeSerial:req.body.binBarcodeSerial
-      }
-    })
-    .then(num => {
-      if (num >= 1) {
-        res.send({
-          message: "Data was updated successfully."
-        });
-      } else {
-        res.status(500).send({
-          message: "Error updating data"
-        });
-      }
-    })
-    .catch(err => {
+  PickingList.update(pickingMaterial, {
+    where: {
+      materialBarcodeSerial:req.body.materialBarcodeSerial
+      // rackBarcodeSerial:req.body.rackBarcodeSerial,
+      // binBarcodeSerial:req.body.binBarcodeSerial
+    }
+  })
+  .then(num => {
+    if (num == 1) {
+      res.send({
+        message: "Data was updated successfully."
+      });
+    } else {
       res.status(500).send({
         message: "Error updating data"
       });
+    }
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "Error updating data"
     });
-  }
-  else{
-    Putaway.update(putawayMaterial, {
-      where: {
-        rackBarcodeSerial:req.body.rackBarcodeSerial,
-        binBarcodeSerial:req.body.binBarcodeSerial,
-        materialBarcodeSerial:req.body.materialBarcodeSerial
-      }
-    })
-    .then(num => {
-      console.log("Num",num);
-      if (num == 1) {
-        res.send({
-          message: "Data was updated successfully."
-        });
-      } else{
-          res.status(500).send({
-            message: "Error updating data"
-          });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error updating data"
-      });
-    });
-  }
-  
+  });
 };
 
-exports.getPutawayCountDashboard = async (req, res) => {
+exports.getPicklistCountDashboard = async (req, res) => {
   // var countTable=[];
   // var totalCount=0;
-  // var putawayCount=0;
-  // await Putaway.count({
+  // var pickingCount = 0;
+  // await PickingList.count({
     
   // }).then(data => {
   //   totalCount=data;
@@ -158,16 +129,16 @@ exports.getPutawayCountDashboard = async (req, res) => {
   //     err.message || "Some error occurred while retrieving count."
   //   });
   // });
-  // await Putaway.count({
+  // await PickingList.count({
   //   where:{
   //     scanStatus:1
   //   }
   // }).then(data => {
-  //   putawayCount = data;
-  //   let putawayCounts = {
-  //     'putawayCount':data
+  //   pickingCount = data;
+  //   let pickingCounts = {
+  //     'pickingCount':data
   //   };
-  //   countTable.push(putawayCounts);
+  //   countTable.push(pickingCounts);
   // }).catch(err => {
   //   res.status(500).send({
   //     message:
@@ -175,7 +146,7 @@ exports.getPutawayCountDashboard = async (req, res) => {
   //   });
   // });
   
-  // let pendingCount =  totalCount - putawayCount;
+  // let pendingCount =  totalCount - pickingCount;
   // let pendingCountArray = {
   //   'pendingCount':pendingCount
   // };
@@ -183,31 +154,31 @@ exports.getPutawayCountDashboard = async (req, res) => {
   // res.status(200).send({
   //   countTable
   // });  
-	console.log("In");
+
   var totalCount = 0;
   var pendingCount = 0;
-  var putawayCount = 0;
+  var pickedCount = 0;
   
-  await Putaway.count({
+  await PickingList.count({
     where:{
       scanStatus:1
     }
   }).then(data=>{
-    putawayCount = data;
+    pickedCount = data;
   })
   
-  await Putaway.count({
+  await PickingList.count({
   
   }).then(data=>{
     totalCount = data;
   })
   
-  pendingCount = totalCount - putawayCount;
+  pendingCount = totalCount - pickedCount;
   var response = {
     totalCount:totalCount,
     pendingCount:pendingCount,
-    putawayCount:putawayCount
+    pickedCount:pickedCount
   }
   res.status(200).send(response);
-
+  
 };

@@ -1,0 +1,113 @@
+Server is running on port \\.\pipe\91322554-e689-4521-87e2-437259c2134f.
+In
+Executing (default): IF OBJECT_ID('[Users]', 'U') IS NULL CREATE TABLE [Users] ([id] INTEGER NOT NULL IDENTITY(1,1) , [username] NVARCHAR(255) NOT NULL UNIQUE, [password] NVARCHAR(255) NOT NULL, [deviceId] NVARCHAR(255) NULL, [status] INTEGER NULL, [createdAt] DATETIMEOFFSET NOT NULL, [updatedAt] DATETIMEOFFSET NOT NULL, PRIMARY KEY ([id]));
+Executing (default): SELECT count(*) AS [count] FROM [pickings] AS [picking] WHERE [picking].[scanStatus] = 1;
+Executing (default): SELECT count(*) AS [count] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 1;
+Executing (default): EXEC sys.sp_helpindex @objname = N'[Users]';
+Executing (default): SELECT count(*) AS [count] FROM [pickings] AS [picking];
+Executing (default): SELECT count(*) AS [count] FROM [putaways] AS [putaway];
+{"message":"- - - [21/Jul/2020:09:41:08 +0000] \"GET /pickings/get/dashboardCount HTTP/1.1\" 200 49 \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+{"message":"- - - [21/Jul/2020:09:41:08 +0000] \"GET /putaways/get/dashboardCount HTTP/1.1\" 200 51 \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+Executing (default): IF OBJECT_ID('[putaways]', 'U') IS NULL CREATE TABLE [putaways] ([id] INTEGER NOT NULL IDENTITY(1,1) , [rackBarcodeSerial] NVARCHAR(255) NOT NULL, [binBarcodeSerial] NVARCHAR(255) NOT NULL, [materialBarcodeSerial] NVARCHAR(255) NOT NULL, [mrcDateTime] NVARCHAR(255) NULL, [briotDateTime] NVARCHAR(255) NULL, [userId] NVARCHAR(255) NOT NULL, [scanStatus] NVARCHAR(255) NULL, [createdAt] DATETIMEOFFSET NOT NULL, [updatedAt] DATETIMEOFFSET NOT NULL, PRIMARY KEY ([id]));
+Executing (default): EXEC sys.sp_helpindex @objname = N'[putaways]';
+Executing (default): IF OBJECT_ID('[pickings]', 'U') IS NULL CREATE TABLE [pickings] ([id] INTEGER NOT NULL IDENTITY(1,1) , [rackBarcodeSerial] NVARCHAR(255) NOT NULL, [binBarcodeSerial] NVARCHAR(255) NOT NULL, [materialBarcodeSerial] NVARCHAR(255) NOT NULL, [mrcDateTime] NVARCHAR(255) NULL, [briotDateTime] NVARCHAR(255) NULL, [userId] NVARCHAR(255) NOT NULL, [scanStatus] NVARCHAR(255) NULL, [createdAt] DATETIMEOFFSET NOT NULL, [updatedAt] DATETIMEOFFSET NOT NULL, PRIMARY KEY ([id]));
+Executing (default): EXEC sys.sp_helpindex @objname = N'[pickings]';
+query {}
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [pickings] AS [picking] WHERE [picking].[scanStatus] = 1;
+Executing (default): IF OBJECT_ID('[materialinwards]', 'U') IS NULL CREATE TABLE [materialinwards] ([id] INTEGER NOT NULL IDENTITY(1,1) , [sapCode] NVARCHAR(255) NULL UNIQUE, [oldCode] NVARCHAR(255) NULL, [finish] NVARCHAR(255) NULL, [desc] NVARCHAR(255) NULL, [custPart] NVARCHAR(255) NULL, [qtyOfPack] NVARCHAR(255) NULL, [packCode] NVARCHAR(255) NULL, [unitWeight] NVARCHAR(255) NULL, [netWeight] NVARCHAR(255) NULL, [grossWeight] NVARCHAR(255) NULL, [refNumber] NVARCHAR(255) NULL, [packDate] NVARCHAR(255) NULL, [printDate] NVARCHAR(255) NULL, [packNumber] NVARCHAR(255) NULL, [userId] NVARCHAR(255) NULL, [DateTimeBriot] NVARCHAR(255) NULL, [createdAt] DATETIMEOFFSET NOT NULL, [updatedAt] DATETIMEOFFSET NOT NULL, PRIMARY KEY ([id]));
+Executing (default): EXEC sys.sp_helpindex @objname = N'[materialinwards]';
+Executing (default): IF OBJECT_ID('[audits]', 'U') IS NULL CREATE TABLE [audits] ([id] INTEGER NOT NULL IDENTITY(1,1) , [sapCode] NVARCHAR(255) NULL UNIQUE, [oldCode] NVARCHAR(255) NULL, [finish] NVARCHAR(255) NULL, [desc] NVARCHAR(255) NULL, [custPart] NVARCHAR(255) NULL, [qtyOfPack] NVARCHAR(255) NULL, [packCode] NVARCHAR(255) NULL, [unitWeight] NVARCHAR(255) NULL, [netWeight] NVARCHAR(255) NULL, [grossWeight] NVARCHAR(255) NULL, [refNumber] NVARCHAR(255) NULL, [packDate] NVARCHAR(255) NULL, [printDate] NVARCHAR(255) NULL, [packNumber] NVARCHAR(255) NULL, [userId] NVARCHAR(255) NULL, [DateTimeBriot] NVARCHAR(255) NULL, [createdAt] DATETIMEOFFSET NOT NULL, [updatedAt] DATETIMEOFFSET NOT NULL, PRIMARY KEY ([id]));
+Executing (default): EXEC sys.sp_helpindex @objname = N'[audits]';
+Executing (default): IF OBJECT_ID('[transactions]', 'U') IS NULL CREATE TABLE [transactions] ([id] INTEGER NOT NULL IDENTITY(1,1) , [rackBarcodeSerial] NVARCHAR(255) NULL, [binBarcodeSerial] NVARCHAR(255) NULL, [materialBarcodeSerial] NVARCHAR(255) NULL, [transactionType] NVARCHAR(255) NULL, [DateTimeBriot] NVARCHAR(255) NULL, [userId] NVARCHAR(255) NULL, [scanStatus] NVARCHAR(255) NULL, [createdAt] DATETIMEOFFSET NOT NULL, [updatedAt] DATETIMEOFFSET NOT NULL, PRIMARY KEY ([id]));
+Executing (default): EXEC sys.sp_helpindex @objname = N'[transactions]';
+{"message":"- - - [21/Jul/2020:09:41:08 +0000] \"GET /pickings/picked HTTP/1.1\" 200 2 \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+query {}
+query {}
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [pickings] AS [picking] WHERE [picking].[scanStatus] = 0;
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [pickings] AS [picking] WHERE [picking].[scanStatus] = 1;
+{"message":"- - - [21/Jul/2020:09:41:10 +0000] \"GET /pickings HTTP/1.1\" 200 1482 \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+{"message":"- - - [21/Jul/2020:09:41:10 +0000] \"GET /pickings/picked HTTP/1.1\" 304 - \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+query {}
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [pickings] AS [picking] WHERE [picking].[scanStatus] = 0;
+{"message":"- - - [21/Jul/2020:09:41:12 +0000] \"GET /pickings HTTP/1.1\" 200 1482 \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+query {}
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [pickings] AS [picking] WHERE [picking].[scanStatus] = 0;
+{"message":"- - - [21/Jul/2020:09:56:28 +0000] \"GET /pickings HTTP/1.1\" 304 - \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+In
+Executing (default): SELECT count(*) AS [count] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 1;
+Executing (default): SELECT count(*) AS [count] FROM [putaways] AS [putaway];
+{"message":"- - - [21/Jul/2020:10:13:08 +0000] \"GET /putaways/get/dashboardCount HTTP/1.1\" 200 51 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36\"\n","level":"info"}
+In
+Executing (default): SELECT count(*) AS [count] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 1;
+Executing (default): SELECT count(*) AS [count] FROM [pickings] AS [picking] WHERE [picking].[scanStatus] = 1;
+Executing (default): SELECT count(*) AS [count] FROM [putaways] AS [putaway];
+Executing (default): SELECT count(*) AS [count] FROM [pickings] AS [picking];
+{"message":"- - - [21/Jul/2020:10:23:25 +0000] \"GET /putaways/get/dashboardCount HTTP/1.1\" 200 51 \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+{"message":"- - - [21/Jul/2020:10:23:25 +0000] \"GET /pickings/get/dashboardCount HTTP/1.1\" 200 49 \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+query {}
+query  {}
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 0;
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 1;
+{"message":"- - - [21/Jul/2020:10:23:30 +0000] \"GET /putaways HTTP/1.1\" 200 3344 \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+{"message":"- - - [21/Jul/2020:10:23:30 +0000] \"GET /putaways/scanned HTTP/1.1\" 200 2272 \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+query {}
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 0;
+{"message":"- - - [21/Jul/2020:10:24:02 +0000] \"GET /putaways HTTP/1.1\" 304 - \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+query {}
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 0;
+{"message":"- - - [21/Jul/2020:10:24:24 +0000] \"GET /putaways HTTP/1.1\" 304 - \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+query {}
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 0;
+{"message":"- - - [21/Jul/2020:10:26:17 +0000] \"GET /putaways HTTP/1.1\" 304 - \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+Executing (default): SELECT count(*) AS [count] FROM [pickings] AS [picking] WHERE [picking].[scanStatus] = 1;
+Executing (default): SELECT count(*) AS [count] FROM [pickings] AS [picking];
+{"message":"- - - [21/Jul/2020:10:28:11 +0000] \"GET /pickings/get/dashboardCount HTTP/1.1\" 304 - \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+In
+Executing (default): SELECT count(*) AS [count] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 1;
+Executing (default): SELECT count(*) AS [count] FROM [putaways] AS [putaway];
+{"message":"- - - [21/Jul/2020:10:28:11 +0000] \"GET /putaways/get/dashboardCount HTTP/1.1\" 304 - \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+query  {}
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 1;
+query {}
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 0;
+{"message":"- - - [21/Jul/2020:10:28:13 +0000] \"GET /putaways/scanned HTTP/1.1\" 304 - \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+{"message":"- - - [21/Jul/2020:10:28:13 +0000] \"GET /putaways HTTP/1.1\" 304 - \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+query {}
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 0;
+{"message":"- - - [21/Jul/2020:10:28:42 +0000] \"GET /putaways HTTP/1.1\" 304 - \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+{"message":"- - - [21/Jul/2020:10:29:17 +0000] \"GET / HTTP/1.1\" 200 43 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36\"\n","level":"info"}
+{"message":"- - - [21/Jul/2020:10:29:18 +0000] \"GET /favicon.ico HTTP/1.1\" 404 150 \"http://117.232.126.226:3000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36\"\n","level":"info"}
+{"message":"- - - [21/Jul/2020:10:29:28 +0000] \"GET / HTTP/1.1\" 200 43 \"-\" \"PostmanRuntime/7.26.1\"\n","level":"info"}
+Executing (default): SELECT [id], [username], [password], [deviceId], [status], [createdAt], [updatedAt] FROM [Users] AS [User];
+{"message":"- - - [21/Jul/2020:10:29:31 +0000] \"GET /users HTTP/1.1\" 200 168 \"-\" \"PostmanRuntime/7.26.1\"\n","level":"info"}
+In
+Executing (default): SELECT count(*) AS [count] FROM [pickings] AS [picking] WHERE [picking].[scanStatus] = 1;
+Executing (default): SELECT count(*) AS [count] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 1;
+Executing (default): SELECT count(*) AS [count] FROM [pickings] AS [picking];
+Executing (default): SELECT count(*) AS [count] FROM [putaways] AS [putaway];
+{"message":"- - - [21/Jul/2020:10:29:36 +0000] \"GET /pickings/get/dashboardCount HTTP/1.1\" 304 - \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+{"message":"- - - [21/Jul/2020:10:29:36 +0000] \"GET /putaways/get/dashboardCount HTTP/1.1\" 304 - \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+query {}
+query  {}
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 0;
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 1;
+{"message":"- - - [21/Jul/2020:10:29:39 +0000] \"GET /putaways HTTP/1.1\" 304 - \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+{"message":"- - - [21/Jul/2020:10:29:39 +0000] \"GET /putaways/scanned HTTP/1.1\" 304 - \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+query {}
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 0;
+{"message":"- - - [21/Jul/2020:10:30:20 +0000] \"GET /putaways HTTP/1.1\" 304 - \"-\" \"okhttp/3.14.4\"\n","level":"info"}
+Executing (default): SELECT [id], [sapCode], [oldCode], [finish], [desc], [custPart], [qtyOfPack], [packCode], [unitWeight], [netWeight], [grossWeight], [refNumber], [packDate], [printDate], [packNumber], [userId], [DateTimeBriot], [createdAt], [updatedAt] FROM [materialinwards] AS [materialinward];
+{"message":"- - - [21/Jul/2020:10:35:59 +0000] \"GET /materialinwards HTTP/1.1\" 200 2 \"-\" \"PostmanRuntime/7.26.1\"\n","level":"info"}
+Executing (default): SELECT [id], [sapCode], [oldCode], [finish], [desc], [custPart], [qtyOfPack], [packCode], [unitWeight], [netWeight], [grossWeight], [refNumber], [packDate], [printDate], [packNumber], [userId], [DateTimeBriot], [createdAt], [updatedAt] FROM [materialinwards] AS [materialinward];
+{"message":"- - - [21/Jul/2020:10:36:08 +0000] \"GET /materialinwards HTTP/1.1\" 200 2 \"-\" \"PostmanRuntime/7.26.1\"\n","level":"info"}
+query {}
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 0;
+{"message":"- - - [21/Jul/2020:10:36:16 +0000] \"GET /putaways HTTP/1.1\" 200 3344 \"-\" \"PostmanRuntime/7.26.1\"\n","level":"info"}
+{"message":"- - - [21/Jul/2020:10:36:38 +0000] \"GET / HTTP/1.1\" 200 43 \"-\" \"Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)\"\n","level":"info"}
+query {}
+Executing (default): SELECT [id], [rackBarcodeSerial], [binBarcodeSerial], [materialBarcodeSerial], [mrcDateTime], [briotDateTime], [userId], [scanStatus], [createdAt], [updatedAt] FROM [putaways] AS [putaway] WHERE [putaway].[scanStatus] = 0;
+{"message":"- - - [21/Jul/2020:10:37:50 +0000] \"GET /putaways HTTP/1.1\" 200 3344 \"-\" \"PostmanRuntime/7.26.1\"\n","level":"info"}
+Executing (default): INSERT INTO [putaways] ([rackBarcodeSerial],[binBarcodeSerial],[materialBarcodeSerial],[userId],[scanStatus],[createdAt],[updatedAt]) OUTPUT INSERTED.* VALUES (@0,@1,@2,@3,@4,@5,@6);
+{"message":"- - - [21/Jul/2020:10:40:14 +0000] \"POST /putaways HTTP/1.1\" 200 354 \"-\" \"PostmanRuntime/7.26.1\"\n","level":"info"}
+Executing (default): SELECT [id], [username], [password], [deviceId], [status], [createdAt], [updatedAt] FROM [Users] AS [User];
+{"message":"- - - [21/Jul/2020:10:40:59 +0000] \"GET /users HTTP/1.1\" 200 168 \"-\" \"PostmanRuntime/7.26.1\"\n","level":"info"}

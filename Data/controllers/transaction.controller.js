@@ -23,7 +23,6 @@ exports.create = async (req, res) => {
 
   
   const audit = {
-    barcodeSerial:materialBarcode,
     sapCode: sapCode,
     oldCode: oldCode,
     finish:finish,

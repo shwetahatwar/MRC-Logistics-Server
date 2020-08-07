@@ -1,14 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const MaterialInward = sequelize.define("materialinward", {
-    barcodeSerial: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique:true
-    },
     sapCode: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
+      unique:true
+
     },
     oldCode: {
       type: DataTypes.STRING,

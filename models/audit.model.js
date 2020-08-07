@@ -1,10 +1,14 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Audit = sequelize.define("audit", {
+    barcodeSerial: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique:true
+    },
     sapCode: {
       type: DataTypes.STRING,
-      allowNull: true,
-      unique:true
+      allowNull: true
     },
     oldCode: {
       type: DataTypes.STRING,

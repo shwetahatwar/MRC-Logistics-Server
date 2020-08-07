@@ -1,9 +1,9 @@
 const db = require("../models");
-const Audit = db.audits;
+const MaterialInward = db.materialinwards;
 const Transaction = db.transactions;
 const Op = db.Sequelize.Op;
 
-//Create Audit
+//Create and Save Material Inward
 exports.create = async (req, res) => {
 
   console.log("In");
@@ -26,8 +26,7 @@ exports.create = async (req, res) => {
   var newTimeSeconds = d.getSeconds();
   var newDateTimeNow = newYear + "." + newMonth + "." + newDay + " " + newTimeHrs + ":" + newTimeMinutes + ":" + newTimeSeconds;
   
-  const auditData = {
-    barcodeSerial:materialBarcode,
+  const materialInward = {
     sapCode: arr[0],
     oldCode: arr[1],
     finish:arr[2],
@@ -45,15 +44,15 @@ exports.create = async (req, res) => {
     DateTimeBriot:newDateTimeNow,
     userId:userId
   };
-  console.log("Line 45", auditData);
+  console.log("Line 45", materialInward);
 
-  await Audit.create(auditData)
+  await MaterialInward.create(materialInward)
   .then(async data => {
     var transactionData = {
       rackBarcodeSerial:"NA",
-      binBarcodeSerial:"NA",
+      binBarcodeSerial:"NA",	
       materialBarcodeSerial : materialBarcode,
-      transactionType : "Physical Stock Verification",
+      transactionType : "MaterialInward",
       userId : req.body.userId,
       scanStatus: "Success",
       DateTimeBriot:newDateTimeNow
@@ -88,13 +87,12 @@ exports.create = async (req, res) => {
       err["errors"][0]["message"] || "Some error occurred while creating the MaterialInward."
     });
   });
-
   
 };
 
-//Get All Audit
+//Get All Material Inward
 exports.findAll = async (req, res) =>{
-  Audit.findAll({ 
+  MaterialInward.findAll({ 
     where: req.params
   })
   .then(data => {
@@ -103,47 +101,47 @@ exports.findAll = async (req, res) =>{
   .catch(err => {
     res.status(500).send({
       message:
-        err.message || "Some error occurred while retrieving Audit."
+        err.message || "Some error occurred while retrieving MaterialInward."
     });
   });
 };
 
-// Find a single Audit with an id
+// Find a single MaterialInward with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Audit.findByPk(id)
+  MaterialInward.findByPk(id)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving Audit with id=" + id
+        message: "Error retrieving MaterialInward with id=" + id
       });
     });
 };
 
-//Update Audit by Id
+//Update Material Inward by Id
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Audit.update(req.body, {
+  MaterialInward.update(req.body, {
     where: req.params
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Audit was updated successfully."
+          message: "MaterialInward was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update Audit with id=${id}. Maybe Audit was not found or req.body is empty!`
+          message: `Cannot update MaterialInward with id=${id}. Maybe MaterialInward was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating Audit with id=" + id
+        message: "Error updating MaterialInward with id=" + id
       });
     });
 };
